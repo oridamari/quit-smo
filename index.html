@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -8,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
+
 <body>
     <div id="app">
         <!-- Settings Overlay -->
@@ -27,7 +29,7 @@
         <div id="main-view" class="view hidden">
             <header>
                 <div class="pot-display">
-                    <span class="label">בקופה שלך</span>
+                    <span class="label">בקופה של נוי</span>
                     <h1 id="pot-total">0 ₪</h1>
                 </div>
                 <div class="progress-section">
@@ -85,14 +87,14 @@
                     </div>
                     <button id="admin-save-settings" class="btn primary">שמור הגדרות</button>
                 </div>
-                
+
                 <div class="card">
                     <h3>היסטוריה</h3>
                     <div id="history-list" class="history-list">
                         <!-- History items injected here -->
                     </div>
                 </div>
-                
+
                 <div class="card danger-zone">
                     <h3>אזור סכנה</h3>
                     <button id="admin-reset-all" class="btn danger">איפוס נתונים מלא</button>
@@ -110,4 +112,5 @@
     </div>
     <script src="app.js"></script>
 </body>
+
 </html>
