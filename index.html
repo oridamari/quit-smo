@@ -57,7 +57,7 @@
                         <span class="icon">🏆</span>
                         ניצחתי את הדודא!
                     </button>
-                    <p class="subtitle">+5 ₪ לקופה</p>
+                    <p class="subtitle" id="display-victory-bonus">+5 ₪ לקופה</p>
                 </div>
 
                 <div class="action-card checkout-card">
@@ -84,6 +84,14 @@
                     <div class="input-group">
                         <label>יעד סיגריות יומי</label>
                         <input type="number" id="admin-daily-goal" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>בונוס על ניצחון דודא (₪)</label>
+                        <input type="number" id="admin-victory-bonus" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>בונוס לכל סיגריה שנחסכה (₪)</label>
+                        <input type="number" id="admin-cigarette-bonus" min="0">
                     </div>
                     <button id="admin-save-settings" class="btn primary">שמור הגדרות</button>
                 </div>

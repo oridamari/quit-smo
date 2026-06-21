@@ -5,6 +5,8 @@ const STATE = {
     data: {
         settings: {
             dailyGoal: 10,
+            victoryBonus: 5,
+            cigaretteBonus: 5,
             milestones: [
                 { name: "עיסוי", cost: 200 },
                 { name: "מסעדה טובה", cost: 500 }
@@ -116,11 +118,13 @@ function setupEventListeners() {
 
         const msg = ENCOURAGING_MESSAGES[Math.floor(Math.random() * ENCOURAGING_MESSAGES.length)];
         
+        const bonus = STATE.data.settings.victoryBonus !== undefined ? STATE.data.settings.victoryBonus : 5;
+        
         const newEntry = {
             id: Date.now().toString(),
             type: 'craving_defeated',
             date: new Date().toISOString(),
-            earned: 5,
+            earned: bonus,
             desc: 'ניצחון על דודא!'
         };
         
@@ -155,11 +159,12 @@ function setupEventListeners() {
         }
 
         const goal = STATE.data.settings.dailyGoal;
+        const cigBonus = STATE.data.settings.cigaretteBonus !== undefined ? STATE.data.settings.cigaretteBonus : 5;
         let earned = 0;
         let desc = `סיכום יומי (${smoked} סיגריות)`;
 
         if (smoked < goal) {
-            earned = (goal - smoked) * 5;
+            earned = (goal - smoked) * cigBonus;
             confetti({ particleCount: 50, spread: 60 });
             showToast(`כל הכבוד! חסכת ${earned} ₪`);
         } else {
@@ -189,8 +194,12 @@ function setupEventListeners() {
 
     document.getElementById('admin-save-settings').addEventListener('click', async () => {
         const goal = parseInt(document.getElementById('admin-daily-goal').value, 10);
-        if(!isNaN(goal) && goal >= 0) {
+        const victoryBonus = parseInt(document.getElementById('admin-victory-bonus').value, 10);
+        const cigaretteBonus = parseInt(document.getElementById('admin-cigarette-bonus').value, 10);
+        if(!isNaN(goal) && goal >= 0 && !isNaN(victoryBonus) && victoryBonus >= 0 && !isNaN(cigaretteBonus) && cigaretteBonus >= 0) {
             STATE.data.settings.dailyGoal = goal;
+            STATE.data.settings.victoryBonus = victoryBonus;
+            STATE.data.settings.cigaretteBonus = cigaretteBonus;
             updateUI();
             showLoading(true);
             await saveGistData();
@@ -313,9 +322,13 @@ function updateUI() {
     
     // Main View specific
     document.getElementById('display-daily-goal').innerText = STATE.data.settings.dailyGoal;
+    const vBonus = STATE.data.settings.victoryBonus !== undefined ? STATE.data.settings.victoryBonus : 5;
+    document.getElementById('display-victory-bonus').innerText = `+${vBonus} ₪ לקופה`;
 
     // Admin View specific
     document.getElementById('admin-daily-goal').value = STATE.data.settings.dailyGoal;
+    document.getElementById('admin-victory-bonus').value = vBonus;
+    document.getElementById('admin-cigarette-bonus').value = STATE.data.settings.cigaretteBonus !== undefined ? STATE.data.settings.cigaretteBonus : 5;
     renderHistory();
 }
 
