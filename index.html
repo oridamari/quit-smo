@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quit & Reward</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Settings Overlay -->
+        <div id="settings-view" class="view hidden">
+            <div class="card">
+                <h2>הגדרות חיבור</h2>
+                <p>הכניסי את הטוקן שלך כדי לסנכרן נתונים.</p>
+                <div class="input-group">
+                    <label>Personal Access Token</label>
+                    <input type="password" id="gist-token" placeholder="ghp_...">
+                </div>
+                <button id="save-settings" class="btn primary">שמירה והתחברות</button>
+            </div>
+        </div>
+
+        <!-- Main Dashboard View -->
+        <div id="main-view" class="view hidden">
+            <header>
+                <div class="pot-display">
+                    <span class="label">בקופה שלך</span>
+                    <h1 id="pot-total">0 ₪</h1>
+                </div>
+                <div class="progress-section">
+                    <div class="progress-text" id="progress-text">עוד 200 ₪ למסאז' חלומי!</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </header>
+
+            <main>
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <span class="stat-val" id="stat-cravings">0</span>
+                        <span class="stat-label">דודאות שניצחת השבוע</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-val" id="stat-earned">0 ₪</span>
+                        <span class="stat-label">סך הכל הרווחת</span>
+                    </div>
+                </div>
+
+                <div class="action-card victory-card">
+                    <button id="btn-victory" class="btn victory">
+                        <span class="icon">🏆</span>
+                        ניצחתי את הדודא!
+                    </button>
+                    <p class="subtitle">+5 ₪ לקופה</p>
+                </div>
+
+                <div class="action-card checkout-card">
+                    <h3>סיכום יומי</h3>
+                    <p>יעד יומי: <strong id="display-daily-goal">10</strong> סיגריות</p>
+                    <div class="input-row">
+                        <label>כמה עישנת היום?</label>
+                        <input type="number" id="daily-smoked" min="0" value="0">
+                    </div>
+                    <button id="btn-checkout" class="btn secondary">עדכון סוף יום</button>
+                </div>
+            </main>
+        </div>
+
+        <!-- Admin View -->
+        <div id="admin-view" class="view hidden">
+            <header class="admin-header">
+                <h2>פאנל ניהול</h2>
+                <button id="btn-exit-admin" class="btn small">חזרה למשחק</button>
+            </header>
+            <main>
+                <div class="card">
+                    <h3>הגדרות כלליות</h3>
+                    <div class="input-group">
+                        <label>יעד סיגריות יומי</label>
+                        <input type="number" id="admin-daily-goal" min="0">
+                    </div>
+                    <button id="admin-save-settings" class="btn primary">שמור הגדרות</button>
+                </div>
+                
+                <div class="card">
+                    <h3>היסטוריה</h3>
+                    <div id="history-list" class="history-list">
+                        <!-- History items injected here -->
+                    </div>
+                </div>
+                
+                <div class="card danger-zone">
+                    <h3>אזור סכנה</h3>
+                    <button id="admin-reset-all" class="btn danger">איפוס נתונים מלא</button>
+                </div>
+            </main>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="hidden">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Toasts -->
+        <div id="toast-container"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
